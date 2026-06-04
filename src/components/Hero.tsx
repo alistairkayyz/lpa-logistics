@@ -10,13 +10,21 @@ export function Hero() {
 
   useGSAP(
     () => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      tl.from(".hero-eyebrow", { y: 20, opacity: 0, duration: 0.6 })
-        .from(".hero-line", { yPercent: 110, opacity: 0, duration: 0.9, stagger: 0.12 }, "-=0.3")
-        .from(".hero-sub", { y: 20, opacity: 0, duration: 0.7 }, "-=0.4")
-        .from(".hero-cta", { y: 20, opacity: 0, duration: 0.6, stagger: 0.1 }, "-=0.4")
-        .from(".hero-stat", { y: 20, opacity: 0, duration: 0.6, stagger: 0.1 }, "-=0.3")
-        .from(".hero-img", { scale: 1.1, opacity: 0, duration: 1.4, ease: "power2.out" }, 0.2);
+      // Respect users who prefer reduced motion: show everything immediately.
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 0.5 } });
+      tl.from(".hero-eyebrow", { y: 16, opacity: 0, duration: 0.35 })
+        .from(".hero-line", { yPercent: 110, opacity: 0, stagger: 0.07 }, "-=0.15")
+        // Bring the sub-text, CTAs and stats in together right after the headline
+        // so the buttons are visible and clickable early instead of waiting out a
+        // long sequential chain.
+        .from(
+          [".hero-sub", ".hero-cta", ".hero-stat"],
+          { y: 16, opacity: 0, stagger: 0.06 },
+          "-=0.2",
+        )
+        .from(".hero-img", { scale: 1.08, opacity: 0, duration: 0.9, ease: "power2.out" }, 0.05);
 
       // subtle floating motion
       gsap.to(".hero-img-inner", {
