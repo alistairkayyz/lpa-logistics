@@ -6,8 +6,8 @@ import { Industries } from "@/components/sections/Industries";
 import { CTASection } from "@/components/sections/CTASection";
 import { PageHero } from "@/components/PageHero";
 import { Check } from "lucide-react";
-import truckSide from "@/assets/truck-side.jpg.asset.json";
-import truckCab from "@/assets/truck-cab.jpg.asset.json";
+import truckSide from "@/assets/truck-side.jpg";
+import truckCab from "@/assets/truck-cab.jpg";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -102,14 +102,14 @@ function ServicesPage() {
         />
         <Services />
         <Detail
-          image={truckCab.url}
+          image={truckCab}
           eyebrow="Local"
           title="Local transportation across South Africa"
           desc="Flexible, reliable transport for businesses moving goods nationwide. Whether you need single shipments or regular scheduled collections, we deliver consistent, professional service."
           points={local}
         />
         <Detail
-          image={truckSide.url}
+          image={truckSide}
           eyebrow="Cross-Border"
           title="Cross-border logistics across the SADC region"
           desc="We coordinate the transport requirements, manage border logistics and ensure goods reach their destination safely and on time."

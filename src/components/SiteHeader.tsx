@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
-import logo from "@/assets/lpa-logo.png.asset.json";
-import icon from "@/assets/lpa-icon.png.asset.json";
+import logo from "@/assets/lpa-logo.png";
+import icon from "@/assets/lpa-icon.png";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -23,7 +23,7 @@ export function SiteHeader({ variant = "light" }: { variant?: "light" | "transpa
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3">
           <img
-            src={onDark ? icon.url : logo.url}
+            src={onDark ? icon : logo}
             alt="LPA Logistics"
             className={onDark ? "h-10 w-auto" : "h-9 w-auto"}
           />

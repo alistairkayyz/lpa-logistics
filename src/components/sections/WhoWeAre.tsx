@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CheckCircle2 } from "lucide-react";
-import truck from "@/assets/truck-cab.jpg.asset.json";
+import truck from "@/assets/truck-cab.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,7 +41,7 @@ export function WhoWeAre() {
         <div className="lg:col-span-6 relative">
           <div className="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-card">
             <img
-              src={truck.url}
+              src={truck}
               alt="LPA Logistics truck cab"
               className="wwa-img absolute inset-0 w-full h-[120%] object-cover"
             />

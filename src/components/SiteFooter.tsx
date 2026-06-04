@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, Phone, MapPin } from "lucide-react";
-import icon from "@/assets/lpa-icon.png.asset.json";
+import icon from "@/assets/lpa-icon.png";
 
 export function SiteFooter() {
   return (
@@ -8,7 +8,7 @@ export function SiteFooter() {
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16 grid md:grid-cols-4 gap-10">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
-            <img src={icon.url} alt="" className="h-10 w-auto" />
+            <img src={icon} alt="" className="h-10 w-auto" />
             <div>
               <div className="font-extrabold text-xl tracking-tight">
                 LPA <span className="text-primary">Logistics</span>

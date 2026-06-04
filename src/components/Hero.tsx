@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Truck } from "lucide-react";
-import truck from "@/assets/truck-weighbridge.jpg.asset.json";
+import truck from "@/assets/truck-weighbridge.jpg";
 
 export function Hero() {
   const root = useRef<HTMLDivElement>(null);
@@ -98,7 +98,7 @@ export function Hero() {
         <div className="lg:col-span-5 relative hero-img">
           <div className="hero-img-inner relative rounded-3xl overflow-hidden shadow-glow ring-1 ring-white/10">
             <img
-              src={truck.url}
+              src={truck}
               alt="LPA Logistics Volvo FH 440 with curtain-side trailer"
               className="w-full h-[500px] lg:h-[640px] object-cover"
             />
