@@ -1,0 +1,207 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useRef, useState } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { PageHero } from "@/components/PageHero";
+import { Phone, Mail, MapPin, Send, Check } from "lucide-react";
+
+export const Route = createFileRoute("/contact")({
+  head: () => ({
+    meta: [
+      { title: "Contact — LPA Logistics" },
+      {
+        name: "description",
+        content:
+          "Get in touch with LPA Logistics for transport and cross-border freight enquiries.",
+      },
+      { property: "og:title", content: "Contact LPA Logistics" },
+      { property: "og:description", content: "Let's move your business forward." },
+    ],
+  }),
+  component: ContactPage,
+});
+
+function ContactPage() {
+  const root = useRef<HTMLDivElement>(null);
+  const [sent, setSent] = useState(false);
+
+  useGSAP(
+    () => {
+      gsap.from(".cf-field", {
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.08,
+        ease: "power3.out",
+      });
+    },
+    { scope: root },
+  );
+
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    gsap.to(e.currentTarget, { borderColor: "oklch(0.66 0.19 245)", duration: 0.3 });
+  };
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    gsap.to(e.currentTarget, { borderColor: "oklch(0.92 0.01 252)", duration: 0.3 });
+  };
+
+  return (
+    <div className="min-h-screen bg-background">
+      <SiteHeader />
+      <main className="pt-20">
+        <PageHero
+          eyebrow="Contact"
+          title="Let's move your business forward."
+          subtitle="Tell us about your freight requirements and we'll come back to you with a tailored solution."
+        />
+
+        <section className="py-20 lg:py-24">
+          <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-5 gap-12">
+            <div className="lg:col-span-2 space-y-5">
+              {[
+                { i: Phone, l: "Phone", v: "+27 73 668 6252", h: "tel:+27736686252" },
+                {
+                  i: Mail,
+                  l: "Email",
+                  v: "info@lpalogistics.co.za",
+                  h: "mailto:info@lpalogistics.co.za",
+                },
+                {
+                  i: MapPin,
+                  l: "Address",
+                  v: "Proton Industrial Park, Proton Street, Chloorkop, Gauteng 1624, South Africa",
+                },
+              ].map((c) => {
+                const Content = (
+                  <>
+                    <div className="size-12 rounded-xl bg-gradient-primary text-primary-foreground flex items-center justify-center shadow-glow">
+                      <c.i className="size-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs uppercase tracking-wider text-muted-foreground">
+                        {c.l}
+                      </div>
+                      <div className="font-bold text-navy mt-0.5">{c.v}</div>
+                    </div>
+                  </>
+                );
+                return c.h ? (
+                  <a
+                    key={c.l}
+                    href={c.h}
+                    className="flex items-start gap-4 bg-card border border-border rounded-2xl p-5 hover:border-primary/40 hover:shadow-card transition-all"
+                  >
+                    {Content}
+                  </a>
+                ) : (
+                  <div
+                    key={c.l}
+                    className="flex items-start gap-4 bg-card border border-border rounded-2xl p-5"
+                  >
+                    {Content}
+                  </div>
+                );
+              })}
+            </div>
+
+            <div
+              ref={root}
+              className="lg:col-span-3 bg-card border border-border rounded-3xl p-8 lg:p-10 shadow-card"
+            >
+              {sent ? (
+                <div className="flex flex-col items-center text-center py-10">
+                  <div className="size-16 rounded-full bg-primary/15 text-primary flex items-center justify-center">
+                    <Check className="size-8" />
+                  </div>
+                  <h3 className="mt-5 text-2xl font-bold text-navy">Message sent</h3>
+                  <p className="mt-2 text-muted-foreground">We'll be in touch shortly.</p>
+                </div>
+              ) : (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setSent(true);
+                  }}
+                  className="space-y-5"
+                >
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <div className="cf-field">
+                      <label className="text-sm font-semibold text-navy">Name</label>
+                      <input
+                        required
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none transition-colors"
+                      />
+                    </div>
+                    <div className="cf-field">
+                      <label className="text-sm font-semibold text-navy">Company</label>
+                      <input
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <div className="cf-field">
+                      <label className="text-sm font-semibold text-navy">Email</label>
+                      <input
+                        required
+                        type="email"
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none transition-colors"
+                      />
+                    </div>
+                    <div className="cf-field">
+                      <label className="text-sm font-semibold text-navy">Phone</label>
+                      <input
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+                  <div className="cf-field">
+                    <label className="text-sm font-semibold text-navy">Service of interest</label>
+                    <select
+                      onFocus={handleFocus as never}
+                      onBlur={handleBlur as never}
+                      className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none transition-colors"
+                    >
+                      <option>Local Transportation</option>
+                      <option>Cross-Border Logistics</option>
+                      <option>Freight Coordination</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div className="cf-field">
+                    <label className="text-sm font-semibold text-navy">How can we help?</label>
+                    <textarea
+                      required
+                      rows={5}
+                      onFocus={handleFocus}
+                      onBlur={handleBlur}
+                      className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none transition-colors resize-none"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="cf-field group inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold px-7 py-4 rounded-full hover:scale-[1.03] hover:shadow-glow transition-all"
+                  >
+                    Send message
+                    <Send className="size-4 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </section>
+      </main>
+      <SiteFooter />
+    </div>
+  );
+}
