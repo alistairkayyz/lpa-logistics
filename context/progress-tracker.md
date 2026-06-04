@@ -27,6 +27,14 @@ Context files populated and kept in sync with the current codebase state.
 
 - Nothing currently in progress.
 
+## Recently Completed
+
+- Replaced static SVG blob map in `Coverage` section with a proper Southern Africa SVG map
+  - New `SouthernAfricaMap` component (`src/components/SouthernAfricaMap.tsx`) renders geographically-faithful simplified paths for South Africa (highlighted in brand blue), Botswana, Zimbabwe, Namibia, Mozambique, Zambia, Lesotho, and Eswatini
+  - Animated pulsing city markers (SVG SMIL) for Johannesburg, Cape Town, Durban (primary/large) and Gaborone, Harare, Windhoek, Maputo, Lusaka, Lesotho (secondary/small)
+  - Country path entrance animations via CSS keyframes with staggered delays; `prefers-reduced-motion` respected
+  - Ocean background, geographic grid lines for context, drop shadows per country
+
 ## Next Up
 
 - Wire up the contact form to a real backend (email delivery via a server function or third-party service)
