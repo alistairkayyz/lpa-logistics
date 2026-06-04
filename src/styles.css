@@ -184,3 +184,65 @@
     linear-gradient(to bottom, color-mix(in oklab, white 8%, transparent) 1px, transparent 1px);
   background-size: 56px 56px;
 }
+
+/* ---------------------------------------------------------------------------
+   Entrance & reveal animations (CSS-first, fail-safe)
+
+   Content is ALWAYS visible by default — these classes only hide/animate when
+   the browser both supports the animation and the user has not requested
+   reduced motion. If JS never runs, CSS is disabled, or motion is reduced, the
+   content simply shows. This avoids the "stuck at opacity:0" failure mode of
+   JS-gated reveals and keeps content available to crawlers.
+   --------------------------------------------------------------------------- */
+
+@keyframes lpa-rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lpa-rise-line {
+  from {
+    opacity: 0;
+    transform: translateY(105%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* On-load entrance (above-the-fold content — runs from CSS, no JS needed). */
+  .anim-rise {
+    opacity: 0;
+    animation: lpa-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--anim-delay, 0ms);
+  }
+  .anim-rise-line {
+    opacity: 0;
+    animation: lpa-rise-line 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--anim-delay, 0ms);
+  }
+
+  /* Scroll reveal — the `reveal-armed` class is added by JS (useReveal) only
+     when an IntersectionObserver is in place, so no-JS users never see hidden
+     content. `is-visible` is added when the element scrolls into view. */
+  .reveal-armed {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal-armed.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

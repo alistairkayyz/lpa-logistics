@@ -1,7 +1,6 @@
+import type { CSSProperties } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState } from "react";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
+import { useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PageHero } from "@/components/PageHero";
@@ -23,29 +22,14 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
+// Staggered CSS entrance delay for the form fields.
+const fieldDelay = (i: number) => ({ "--anim-delay": `${i * 70}ms` }) as CSSProperties;
+
+const inputClass =
+  "mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none transition-colors focus:border-primary";
+
 function ContactPage() {
-  const root = useRef<HTMLDivElement>(null);
   const [sent, setSent] = useState(false);
-
-  useGSAP(
-    () => {
-      gsap.from(".cf-field", {
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.08,
-        ease: "power3.out",
-      });
-    },
-    { scope: root },
-  );
-
-  const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    gsap.to(e.currentTarget, { borderColor: "oklch(0.66 0.19 245)", duration: 0.3 });
-  };
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    gsap.to(e.currentTarget, { borderColor: "oklch(0.92 0.01 252)", duration: 0.3 });
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -106,10 +90,7 @@ function ContactPage() {
               })}
             </div>
 
-            <div
-              ref={root}
-              className="lg:col-span-3 bg-card border border-border rounded-3xl p-8 lg:p-10 shadow-card"
-            >
+            <div className="lg:col-span-3 bg-card border border-border rounded-3xl p-8 lg:p-10 shadow-card">
               {sent ? (
                 <div className="flex flex-col items-center text-center py-10">
                   <div className="size-16 rounded-full bg-primary/15 text-primary flex items-center justify-center">
@@ -127,70 +108,42 @@ function ContactPage() {
                   className="space-y-5"
                 >
                   <div className="grid md:grid-cols-2 gap-5">
-                    <div className="cf-field">
+                    <div className="anim-rise" style={fieldDelay(0)}>
                       <label className="text-sm font-semibold text-navy">Name</label>
-                      <input
-                        required
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none transition-colors"
-                      />
+                      <input required className={inputClass} />
                     </div>
-                    <div className="cf-field">
+                    <div className="anim-rise" style={fieldDelay(1)}>
                       <label className="text-sm font-semibold text-navy">Company</label>
-                      <input
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none transition-colors"
-                      />
+                      <input className={inputClass} />
                     </div>
                   </div>
                   <div className="grid md:grid-cols-2 gap-5">
-                    <div className="cf-field">
+                    <div className="anim-rise" style={fieldDelay(2)}>
                       <label className="text-sm font-semibold text-navy">Email</label>
-                      <input
-                        required
-                        type="email"
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none transition-colors"
-                      />
+                      <input required type="email" className={inputClass} />
                     </div>
-                    <div className="cf-field">
+                    <div className="anim-rise" style={fieldDelay(3)}>
                       <label className="text-sm font-semibold text-navy">Phone</label>
-                      <input
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none transition-colors"
-                      />
+                      <input className={inputClass} />
                     </div>
                   </div>
-                  <div className="cf-field">
+                  <div className="anim-rise" style={fieldDelay(4)}>
                     <label className="text-sm font-semibold text-navy">Service of interest</label>
-                    <select
-                      onFocus={handleFocus as never}
-                      onBlur={handleBlur as never}
-                      className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none transition-colors"
-                    >
+                    <select className={inputClass}>
                       <option>Local Transportation</option>
                       <option>Cross-Border Logistics</option>
                       <option>Freight Coordination</option>
                       <option>Other</option>
                     </select>
                   </div>
-                  <div className="cf-field">
+                  <div className="anim-rise" style={fieldDelay(5)}>
                     <label className="text-sm font-semibold text-navy">How can we help?</label>
-                    <textarea
-                      required
-                      rows={5}
-                      onFocus={handleFocus}
-                      onBlur={handleBlur}
-                      className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 outline-none transition-colors resize-none"
-                    />
+                    <textarea required rows={5} className={`${inputClass} resize-none`} />
                   </div>
                   <button
                     type="submit"
-                    className="cf-field group inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold px-7 py-4 rounded-full hover:scale-[1.03] hover:shadow-glow transition-all"
+                    className="anim-rise group inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold px-7 py-4 rounded-full hover:scale-[1.03] hover:shadow-glow transition-all"
+                    style={fieldDelay(6)}
                   >
                     Send message
                     <Send className="size-4 group-hover:translate-x-1 transition-transform" />

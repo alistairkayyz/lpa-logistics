@@ -1,7 +1,3 @@
-import { useRef } from "react";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ShieldCheck,
   MessageCircle,
@@ -11,6 +7,7 @@ import {
   Handshake,
 } from "lucide-react";
 import { Counter } from "@/components/Counter";
+import { useReveal } from "@/hooks/use-reveal";
 
 const items = [
   {
@@ -46,21 +43,7 @@ const items = [
 ];
 
 export function WhyChoose() {
-  const root = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      gsap.from(".why-card", {
-        y: 40,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.08,
-        ease: "power3.out",
-        scrollTrigger: { trigger: ".why-grid", start: "top 75%" },
-      });
-    },
-    { scope: root },
-  );
+  const root = useReveal<HTMLElement>();
 
   return (
     <section ref={root} className="py-24 lg:py-32 bg-background">
@@ -96,7 +79,7 @@ export function WhyChoose() {
           {items.map((i) => (
             <div
               key={i.t}
-              className="why-card group bg-card border border-border rounded-2xl p-7 hover:border-primary/40 hover:shadow-card transition-all"
+              className="reveal group bg-card border border-border rounded-2xl p-7 hover:border-primary/40 hover:shadow-card transition-all"
             >
               <div className="inline-flex size-12 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                 <i.icon className="size-6" />

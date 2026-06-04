@@ -10,15 +10,22 @@ export function Counter({
   duration?: number;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const [val, setVal] = useState(0);
+  // Start at the final value so SSR / no-JS / reduced-motion all show the real
+  // number — the count-up is a progressive enhancement layered on top.
+  const [val, setVal] = useState(to);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion || typeof IntersectionObserver === "undefined") return;
+
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
+            // Count up from 0 to `to` once the element scrolls into view.
             const start = performance.now();
             const tick = (t: number) => {
               const p = Math.min(1, (t - start) / (duration * 1000));

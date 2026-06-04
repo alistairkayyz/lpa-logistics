@@ -1,6 +1,3 @@
-import { useRef } from "react";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
 import { Link } from "@tanstack/react-router";
 import { Truck, Globe2, Route, ArrowUpRight } from "lucide-react";
 
@@ -26,31 +23,8 @@ const services = [
 ];
 
 export function Services() {
-  const root = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      const cards = gsap.utils.toArray<HTMLElement>(".svc-card");
-      cards.forEach((card) => {
-        const icon = card.querySelector(".svc-icon");
-        const arrow = card.querySelector(".svc-arrow");
-        card.addEventListener("mouseenter", () => {
-          gsap.to(card, { y: -8, duration: 0.4, ease: "power2.out" });
-          gsap.to(icon, { rotate: -8, scale: 1.1, duration: 0.4, ease: "back.out(2)" });
-          gsap.to(arrow, { x: 6, y: -6, duration: 0.3, ease: "power2.out" });
-        });
-        card.addEventListener("mouseleave", () => {
-          gsap.to(card, { y: 0, duration: 0.4, ease: "power2.out" });
-          gsap.to(icon, { rotate: 0, scale: 1, duration: 0.4, ease: "power2.out" });
-          gsap.to(arrow, { x: 0, y: 0, duration: 0.3 });
-        });
-      });
-    },
-    { scope: root },
-  );
-
   return (
-    <section ref={root} className="py-24 lg:py-32 bg-background">
+    <section className="py-24 lg:py-32 bg-background">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="max-w-2xl">
           <div className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
@@ -66,11 +40,11 @@ export function Services() {
             <Link
               key={s.title}
               to="/services"
-              className="svc-card group relative bg-card border border-border rounded-2xl p-8 shadow-card overflow-hidden"
+              className="group relative bg-card border border-border rounded-2xl p-8 shadow-card overflow-hidden transition-transform duration-300 ease-out hover:-translate-y-2"
             >
               <div className="absolute -top-12 -right-12 size-40 rounded-full bg-primary/5 group-hover:bg-primary/10 transition-colors" />
               <div className="relative">
-                <div className="svc-icon inline-flex size-14 items-center justify-center rounded-xl bg-gradient-primary text-white shadow-glow">
+                <div className="inline-flex size-14 items-center justify-center rounded-xl bg-gradient-primary text-white shadow-glow transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110">
                   <s.icon className="size-7" />
                 </div>
                 <h3 className="mt-6 text-2xl font-bold text-navy">{s.title}</h3>
@@ -85,7 +59,7 @@ export function Services() {
                 </ul>
                 <div className="mt-8 flex items-center justify-between">
                   <span className="text-sm font-semibold text-primary">Learn more</span>
-                  <ArrowUpRight className="svc-arrow size-5 text-primary" />
+                  <ArrowUpRight className="size-5 text-primary transition-transform duration-300 ease-out group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </div>
               </div>
             </Link>

@@ -1,7 +1,4 @@
-import { useRef } from "react";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useReveal } from "@/hooks/use-reveal";
 
 const steps = [
   { n: "01", t: "Understand", d: "We learn your business, supply chain and transport needs." },
@@ -12,32 +9,7 @@ const steps = [
 ];
 
 export function Process() {
-  const root = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      gsap.from(".step", {
-        opacity: 0,
-        y: 30,
-        stagger: 0.12,
-        duration: 0.7,
-        ease: "power3.out",
-        scrollTrigger: { trigger: root.current, start: "top 70%" },
-      });
-      gsap.fromTo(
-        ".step-line",
-        { scaleX: 0 },
-        {
-          scaleX: 1,
-          duration: 1.5,
-          ease: "power2.out",
-          transformOrigin: "left center",
-          scrollTrigger: { trigger: root.current, start: "top 70%" },
-        },
-      );
-    },
-    { scope: root },
-  );
+  const root = useReveal<HTMLElement>({ selector: ".step" });
 
   return (
     <section ref={root} className="py-24 lg:py-32 bg-navy text-white relative overflow-hidden">

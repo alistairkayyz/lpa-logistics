@@ -1,39 +1,9 @@
-import { useRef } from "react";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CheckCircle2 } from "lucide-react";
 import truck from "@/assets/truck-cab.jpg";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useReveal } from "@/hooks/use-reveal";
 
 export function WhoWeAre() {
-  const root = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      gsap.to(".wwa-img", {
-        yPercent: -12,
-        ease: "none",
-        scrollTrigger: {
-          trigger: root.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-
-      gsap.from(".wwa-reveal", {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power3.out",
-        scrollTrigger: { trigger: root.current, start: "top 70%" },
-      });
-    },
-    { scope: root },
-  );
+  const root = useReveal<HTMLElement>({ selector: ".wwa-reveal", stagger: 100 });
 
   return (
     <section ref={root} className="py-24 lg:py-32 bg-secondary/40 overflow-hidden">
@@ -43,7 +13,7 @@ export function WhoWeAre() {
             <img
               src={truck}
               alt="LPA Logistics truck cab"
-              className="wwa-img absolute inset-0 w-full h-[120%] object-cover"
+              className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent" />
           </div>
