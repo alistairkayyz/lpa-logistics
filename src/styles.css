@@ -50,7 +50,7 @@
   --secondary: oklch(0.97 0.01 252);
   --secondary-foreground: oklch(0.32 0.04 252);
   --muted: oklch(0.97 0.01 252);
-  --muted-foreground: oklch(0.5 0.03 252);
+  --muted-foreground: oklch(0.44 0.03 252);
   --accent: oklch(0.95 0.03 245);
   --accent-foreground: oklch(0.32 0.04 252);
   --destructive: oklch(0.6 0.22 27);
@@ -91,7 +91,13 @@
   --input: oklch(1 0 0 / 15%);
 }
 
+/* Ensure placeholder text meets contrast requirements while staying clearly
+   distinguishable from user-entered values. */
 @layer base {
+  ::placeholder {
+    color: var(--muted-foreground);
+    opacity: 0.6;
+  }
   @font-face {
     font-family: "Blinker";
     font-style: normal;
@@ -135,6 +141,20 @@
 
   * {
     border-color: var(--color-border);
+  }
+
+  /* Keyboard-visible focus ring — applies to buttons, links, and inputs that
+     use outline-none (so the ring comes from ring utilities instead). */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  /* Inputs and textareas manage focus appearance via border + ring utilities;
+     suppress the global outline so they don't double-render. */
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: none;
   }
 
   html {

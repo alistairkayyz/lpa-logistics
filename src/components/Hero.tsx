@@ -86,7 +86,7 @@ export function Hero() {
             <img
               src={truck}
               alt="LPA Logistics Volvo FH 440 with curtain-side trailer"
-              className="w-full h-[500px] lg:h-[640px] object-cover"
+              className="w-full h-80 sm:h-100 md:h-115 lg:h-160 object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4">

@@ -29,6 +29,15 @@ Context files populated and kept in sync with the current codebase state.
 
 ## Recently Completed
 
+- **Full UI/UX audit pass** (impeccable audit) — 7 files changed:
+  - `PRODUCT.md` — created; captures register (brand), users, personality, design principles
+  - `SiteHeader.tsx` — header now `fixed` on inner pages (was `absolute`, scrolled off screen); transparent/homepage variant scrolls with the hero then transitions to a solid fixed bar on scroll; `aria-expanded` added to hamburger; ESC key closes mobile menu; backdrop overlay closes mobile menu on outside tap; phone number added to mobile menu; active states on mobile links
+  - `contact.tsx` — address icon swapped from `MapPin` to `Building2` (visual weight parity with Phone/Mail); all form inputs now have `id`/`htmlFor` associations; meaningful placeholders on every field; `type="tel"` on phone; `maxLength` on all text fields; service select gets a disabled default "Select a service…" option; client-side validation with inline error messages on submit; `aria-invalid` / `aria-describedby` wired; `noValidate` + React validation owns the flow; success state gains "Send another message" reset; `AlertCircle` error icon in field error messages
+  - `styles.css` — `--muted-foreground` bumped from `oklch(0.5 …)` to `oklch(0.44 …)` for WCAG AA 4.5:1 on white; global `::placeholder` rule set to 60% opacity of muted-foreground; global `:focus-visible` outline ring for keyboard nav; inputs/textareas suppressed from the global rule (they use border + ring utilities)
+  - `sections/Industries.tsx` — `group-hover:text-white` added to icon so it matches card text on the navy hover state (was blue icon on navy bg = poor contrast)
+  - `Hero.tsx` — hero image height is now responsive: `h-80 sm:h-100 md:h-115 lg:h-160` (was fixed `h-[500px]` at all breakpoints, taking ~150% of mobile viewport height)
+  - `sections/WhoWeAre.tsx` — "Our promise" overlay card uses `right-0 sm:-right-6` instead of `-right-6` at all widths, preventing it from clipping outside the section's `overflow-hidden` boundary at narrow viewports; canonical Tailwind v4 class names applied (`aspect-4/5`, `bg-linear-to-t`, `max-w-55`)
+
 - Replaced static SVG blob map in `Coverage` section with a proper Southern Africa SVG map
   - New `SouthernAfricaMap` component (`src/components/SouthernAfricaMap.tsx`) renders geographically-faithful simplified paths for South Africa (highlighted in brand blue), Botswana, Zimbabwe, Namibia, Mozambique, Zambia, Lesotho, and Eswatini
   - Animated pulsing city markers (SVG SMIL) for Johannesburg, Cape Town, Durban (primary/large) and Gaborone, Harare, Windhoek, Maputo, Lusaka, Lesotho (secondary/small)

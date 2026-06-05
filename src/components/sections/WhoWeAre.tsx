@@ -9,15 +9,15 @@ export function WhoWeAre() {
     <section ref={root} className="py-24 lg:py-32 bg-secondary/40 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-6 relative">
-          <div className="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-card">
+          <div className="relative rounded-3xl overflow-hidden aspect-4/5 shadow-card">
             <img
               src={truck}
               alt="LPA Logistics truck cab"
               className="absolute inset-0 w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-navy/40 to-transparent" />
           </div>
-          <div className="absolute -bottom-6 -right-6 bg-primary text-primary-foreground rounded-2xl px-6 py-5 shadow-glow max-w-[220px]">
+          <div className="absolute -bottom-6 right-0 sm:-right-6 bg-primary text-primary-foreground rounded-2xl px-6 py-5 shadow-glow max-w-55">
             <div className="text-xs uppercase tracking-widest opacity-80">Our promise</div>
             <div className="mt-1 font-bold text-lg leading-tight">
               Delivering in time with trust.

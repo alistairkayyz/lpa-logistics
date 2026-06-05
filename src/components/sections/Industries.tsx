@@ -27,7 +27,7 @@ export function Industries() {
               key={i.t}
               className="group bg-card border border-border rounded-xl p-6 text-center hover:bg-navy hover:text-white hover:border-navy transition-all"
             >
-              <i.icon className="size-8 mx-auto text-primary group-hover:scale-110 transition-transform" />
+              <i.icon className="size-8 mx-auto text-primary group-hover:text-white group-hover:scale-110 transition-all" />
               <div className="mt-3 text-sm font-semibold">{i.t}</div>
             </div>
           ))}
