@@ -1,5 +1,9 @@
+import { lazy, Suspense } from "react";
 import { MapPin } from "lucide-react";
-import { SouthernAfricaMap } from "@/components/SouthernAfricaMap";
+
+const SouthernAfricaMap = lazy(() =>
+  import("@/components/SouthernAfricaMap").then((m) => ({ default: m.SouthernAfricaMap }))
+);
 
 const countries = [
   "South Africa",
@@ -42,7 +46,13 @@ export function Coverage() {
         </div>
 
         <div className="relative aspect-square max-w-lg mx-auto w-full">
-          <SouthernAfricaMap />
+          <Suspense
+            fallback={
+              <div className="w-full h-full rounded-full bg-secondary/60 animate-pulse" />
+            }
+          >
+            <SouthernAfricaMap />
+          </Suspense>
         </div>
       </div>
     </section>

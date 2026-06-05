@@ -26,6 +26,9 @@ export default defineConfig(({ command }) => ({
       "@tanstack/query-core",
     ],
   },
+  ssr: {
+    noExternal: ["react-simple-maps", "d3-geo", "topojson-client", "prop-types"],
+  },
   plugins: [
     tailwindcss(),
     tanstackStart({
